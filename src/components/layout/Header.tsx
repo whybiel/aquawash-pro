@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Droplets, User, Calendar, Settings } from "lucide-react";
+import { Droplets, User, Calendar, Settings, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { LoginModal } from "@/components/auth/LoginModal";
 
 const Header = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user, logout, isAuthenticated } = useAuth();
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
     <header className="bg-gradient-card backdrop-blur-md border-b border-border/50 sticky top-0 z-50 shadow-soft">
@@ -38,20 +41,38 @@ const Header = () => {
           <div className="flex items-center gap-3">
             {isAuthenticated ? (
               <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon">
-                  <Settings className="w-4 h-4" />
-                </Button>
+                {user?.role === 'admin' && (
+                  <Button variant="ghost" size="icon">
+                    <Settings className="w-4 h-4" />
+                  </Button>
+                )}
                 <Button variant="ghost" className="flex items-center gap-2">
                   <User className="w-4 h-4" />
-                  <span className="hidden sm:inline">Usuário</span>
+                  <span className="hidden sm:inline">{user?.name}</span>
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={logout}
+                  title="Sair"
+                >
+                  <LogOut className="w-4 h-4" />
                 </Button>
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowLoginModal(true)}
+                >
                   Entrar
                 </Button>
-                <Button size="sm" className="bg-gradient-primary hover:opacity-90 transition-smooth">
+                <Button 
+                  size="sm" 
+                  className="bg-gradient-primary hover:opacity-90 transition-smooth"
+                  onClick={() => setShowLoginModal(true)}
+                >
                   Cadastrar
                 </Button>
               </div>
@@ -59,6 +80,11 @@ const Header = () => {
           </div>
         </div>
       </div>
+      
+      <LoginModal 
+        isOpen={showLoginModal} 
+        onClose={() => setShowLoginModal(false)} 
+      />
     </header>
   );
 };

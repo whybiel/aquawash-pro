@@ -46,7 +46,11 @@ const HeroSection = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 transition-smooth">
+              <Button 
+                size="lg" 
+                className="bg-white text-primary hover:bg-white/90 transition-smooth"
+                onClick={() => window.location.href = '/agendamento'}
+              >
                 <Calendar className="w-5 h-5 mr-2" />
                 Agendar Agora
               </Button>
