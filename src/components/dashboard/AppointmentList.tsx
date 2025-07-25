@@ -15,17 +15,9 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { AppointmentCard } from './AppointmentCard';
-
-interface Appointment {
-  id: string;
-  date: Date;
-  time: string;
-  service: string;
-  professional: string;
-  vehicle: string;
-  status: 'pendente' | 'confirmado' | 'concluido' | 'cancelado';
-  price: number;
-}
+import { useAppDispatch } from '@/store/hooks';
+import { reorderAppointments } from '@/store/slices/appointmentSlice';
+import type { Appointment } from '@/store/slices/appointmentSlice';
 
 interface AppointmentListProps {
   appointments: Appointment[];
@@ -33,6 +25,7 @@ interface AppointmentListProps {
 
 export function AppointmentList({ appointments: initialAppointments }: AppointmentListProps) {
   const [appointments, setAppointments] = useState(initialAppointments);
+  const dispatch = useAppDispatch();
   
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -48,10 +41,19 @@ export function AppointmentList({ appointments: initialAppointments }: Appointme
       setAppointments((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over?.id);
-
-        return arrayMove(items, oldIndex, newIndex);
+        const reorderedItems = arrayMove(items, oldIndex, newIndex);
+        
+        // Atualizar o Redux store
+        dispatch(reorderAppointments(reorderedItems));
+        
+        return reorderedItems;
       });
     }
+  }
+
+  // Atualizar estado local quando props mudam
+  if (JSON.stringify(appointments) !== JSON.stringify(initialAppointments)) {
+    setAppointments(initialAppointments);
   }
 
   if (appointments.length === 0) {

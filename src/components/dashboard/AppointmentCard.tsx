@@ -6,17 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Clock, Car, User, Edit3, Trash2, GripVertical } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-
-interface Appointment {
-  id: string;
-  date: Date;
-  time: string;
-  service: string;
-  professional: string;
-  vehicle: string;
-  status: 'pendente' | 'confirmado' | 'concluido' | 'cancelado';
-  price: number;
-}
+import { useAppDispatch } from '@/store/hooks';
+import { updateAppointment, cancelAppointment } from '@/store/slices/appointmentSlice';
+import { useToast } from '@/hooks/use-toast';
+import type { Appointment } from '@/store/slices/appointmentSlice';
 
 interface AppointmentCardProps {
   appointment: Appointment;
@@ -30,6 +23,8 @@ const statusConfig = {
 };
 
 export function AppointmentCard({ appointment }: AppointmentCardProps) {
+  const dispatch = useAppDispatch();
+  const { toast } = useToast();
   const {
     attributes,
     listeners,
@@ -46,6 +41,22 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
 
   const statusInfo = statusConfig[appointment.status];
   const canEdit = appointment.status === 'pendente' || appointment.status === 'confirmado';
+  
+  const handleCancel = () => {
+    dispatch(cancelAppointment(appointment.id));
+    toast({
+      title: "Agendamento cancelado",
+      description: "O agendamento foi cancelado com sucesso.",
+    });
+  };
+
+  const handleEdit = () => {
+    // Por enquanto apenas mostra toast, implementar modal de edição depois
+    toast({
+      title: "Editar agendamento",
+      description: "Funcionalidade de edição em desenvolvimento.",
+    });
+  };
 
   return (
     <div
@@ -95,22 +106,27 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
                   
                   <div className="flex items-center text-muted-foreground">
                     <Car className="mr-2 h-4 w-4" />
-                    {appointment.vehicle}
+                    {`${appointment.vehicle.make} ${appointment.vehicle.model} - ${appointment.vehicle.plate}`}
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
                   <div className="text-lg font-semibold text-primary">
-                    R$ {appointment.price.toFixed(2)}
+                    R$ {appointment.servicePrice.toFixed(2)}
                   </div>
                   
                   {canEdit && (
                     <div className="flex space-x-2">
-                      <Button size="sm" variant="outline">
+                      <Button size="sm" variant="outline" onClick={handleEdit}>
                         <Edit3 className="mr-2 h-4 w-4" />
                         Editar
                       </Button>
-                      <Button size="sm" variant="outline" className="text-destructive hover:text-destructive">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="text-destructive hover:text-destructive"
+                        onClick={handleCancel}
+                      >
                         <Trash2 className="mr-2 h-4 w-4" />
                         Cancelar
                       </Button>

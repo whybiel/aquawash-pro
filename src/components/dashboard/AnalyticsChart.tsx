@@ -15,8 +15,18 @@ import {
 } from 'recharts';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-// Mock data para demonstração
-const monthlyData = [
+interface ChartDataItem {
+  month: string;
+  agendamentos: number;
+  receita: number;
+}
+
+interface AnalyticsChartProps {
+  data?: ChartDataItem[];
+}
+
+// Fallback data caso não seja fornecido
+const defaultMonthlyData = [
   { month: 'Jan', agendamentos: 12, receita: 420 },
   { month: 'Fev', agendamentos: 19, receita: 665 },
   { month: 'Mar', agendamentos: 8, receita: 280 },
@@ -64,7 +74,9 @@ const CustomPieTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-export function AnalyticsChart() {
+export function AnalyticsChart({ data }: AnalyticsChartProps) {
+  const chartData = data && data.length > 0 ? data : defaultMonthlyData;
+  
   return (
     <Tabs defaultValue="appointments" className="w-full">
       <TabsList className="grid w-full grid-cols-3 mb-4">
@@ -76,7 +88,7 @@ export function AnalyticsChart() {
       <TabsContent value="appointments">
         <div className="h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={monthlyData}>
+            <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis 
                 dataKey="month" 
@@ -104,7 +116,7 @@ export function AnalyticsChart() {
       <TabsContent value="revenue">
         <div className="h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={monthlyData}>
+            <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis 
                 dataKey="month" 

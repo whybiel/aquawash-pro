@@ -1,76 +1,58 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, Car, User, TrendingUp, CheckCircle2, XCircle, Edit3 } from 'lucide-react';
+import { Calendar, CheckCircle2, TrendingUp, User, Car } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import { AppointmentList } from '@/components/dashboard/AppointmentList';
 import { AnalyticsChart } from '@/components/dashboard/AnalyticsChart';
 import { useAuth } from '@/contexts/AuthContext';
-
-// Mock data para demonstração
-const mockAppointments = [
-  {
-    id: '1',
-    date: new Date('2024-07-30'),
-    time: '09:00',
-    service: 'Lavagem Completa',
-    professional: 'João Silva',
-    vehicle: 'Honda Civic - ABC-1234',
-    status: 'confirmado' as const,
-    price: 35.00
-  },
-  {
-    id: '2',
-    date: new Date('2024-08-02'),
-    time: '14:30',
-    service: 'Enceramento',
-    professional: 'Maria Santos',
-    vehicle: 'Toyota Corolla - XYZ-5678',
-    status: 'pendente' as const,
-    price: 80.00
-  },
-  {
-    id: '3',
-    date: new Date('2024-07-20'),
-    time: '11:00',
-    service: 'Lavagem Simples',
-    professional: 'Carlos Oliveira',
-    vehicle: 'Volkswagen Gol - DEF-9012',
-    status: 'concluido' as const,
-    price: 25.00
-  },
-  {
-    id: '4',
-    date: new Date('2024-07-15'),
-    time: '16:00',
-    service: 'Detalhamento Interno',
-    professional: 'Ana Costa',
-    vehicle: 'Ford Focus - GHI-3456',
-    status: 'cancelado' as const,
-    price: 120.00
-  }
-];
+import { useAppSelector } from '@/store/hooks';
+import { 
+  selectUpcomingAppointments, 
+  selectPastAppointments, 
+  selectAppointmentStats 
+} from '@/store/selectors/appointmentSelectors';
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const [appointments] = useState(mockAppointments);
-
-  const upcomingAppointments = appointments.filter(apt => 
-    apt.date >= new Date() && apt.status !== 'cancelado'
+  
+  // Usando selectors do Redux para obter dados baseados no role do usuário
+  const upcomingAppointments = useAppSelector(state => 
+    selectUpcomingAppointments(state, user?.id || '', user?.role || 'user')
+  );
+  
+  const pastAppointments = useAppSelector(state => 
+    selectPastAppointments(state, user?.id || '', user?.role || 'user')
+  );
+  
+  const stats = useAppSelector(state => 
+    selectAppointmentStats(state, user?.id || '', user?.role || 'user')
   );
 
-  const pastAppointments = appointments.filter(apt => 
-    apt.date < new Date() || apt.status === 'concluido'
-  );
-
-  const totalSpent = appointments
-    .filter(apt => apt.status === 'concluido')
-    .reduce((sum, apt) => sum + apt.price, 0);
-
-  const totalAppointments = appointments.length;
-  const completedAppointments = appointments.filter(apt => apt.status === 'concluido').length;
+  // Dados para o gráfico baseados nos agendamentos reais
+  const chartData = useMemo(() => {
+    const allAppointments = [...upcomingAppointments, ...pastAppointments];
+    const monthlyData: { [key: string]: { agendamentos: number; receita: number } } = {};
+    
+    allAppointments.forEach(appointment => {
+      const monthKey = appointment.date.toLocaleString('pt-BR', { month: 'short' });
+      
+      if (!monthlyData[monthKey]) {
+        monthlyData[monthKey] = { agendamentos: 0, receita: 0 };
+      }
+      
+      monthlyData[monthKey].agendamentos += 1;
+      if (appointment.status === 'concluido') {
+        monthlyData[monthKey].receita += appointment.servicePrice;
+      }
+    });
+    
+    return Object.entries(monthlyData).map(([month, data]) => ({
+      month,
+      ...data
+    }));
+  }, [upcomingAppointments, pastAppointments]);
 
   return (
     <Layout>
@@ -111,7 +93,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-primary">
-                  {totalAppointments}
+                  {stats.total}
                 </div>
               </CardContent>
             </Card>
@@ -125,7 +107,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-primary">
-                  {completedAppointments}
+                  {stats.completed}
                 </div>
               </CardContent>
             </Card>
@@ -139,7 +121,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-primary">
-                  R$ {totalSpent.toFixed(2)}
+                  R$ {stats.totalSpent.toFixed(2)}
                 </div>
               </CardContent>
             </Card>
@@ -188,7 +170,7 @@ const Dashboard = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <AnalyticsChart />
+                  <AnalyticsChart data={chartData} />
                 </CardContent>
               </Card>
 
