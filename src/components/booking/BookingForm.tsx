@@ -38,7 +38,6 @@ const timeSlots = [
   '13:00', '14:00', '15:00', '16:00', '17:00'
 ];
 
-// Schema de validação
 const bookingSchema = z.object({
   service: z.string().min(1, 'Selecione um serviço'),
   professional: z.string().min(1, 'Selecione um profissional'),
@@ -76,8 +75,7 @@ export function BookingForm() {
   });
 
   const validateConflict = (date: Date, time: string) => {
-    // Aqui implementaríamos a validação de conflito com outros agendamentos
-    // Por enquanto, retorna sempre false (sem conflito)
+    // COLOCAR VALIDAÇÃO DE SOBREPOSIÇÃO - AMnaha
     return false;
   };
 
@@ -91,7 +89,6 @@ export function BookingForm() {
       return;
     }
 
-    // Verificar conflitos
     if (validateConflict(data.date, data.time)) {
       toast({
         title: "Conflito de horário",
@@ -103,7 +100,6 @@ export function BookingForm() {
 
     const selectedService = services.find(s => s.name === data.service);
     
-    // Criar o agendamento
     const newAppointment = {
       userId: user.id,
       userName: user.name,
@@ -129,7 +125,6 @@ export function BookingForm() {
       description: `Seu agendamento para ${format(data.date, "dd/MM/yyyy")} às ${data.time} foi registrado.`,
     });
 
-    // Resetar o formulário
     form.reset();
     setSelectedDate(undefined);
   };
@@ -156,7 +151,6 @@ export function BookingForm() {
       </CardHeader>
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {/* Serviço */}
           <div className="space-y-2">
             <Label className="text-foreground">Tipo de Serviço *</Label>
             <Select onValueChange={(value) => form.setValue('service', value)} value={form.watch('service')}>
@@ -181,7 +175,6 @@ export function BookingForm() {
             )}
           </div>
 
-          {/* Profissional */}
           <div className="space-y-2">
             <Label className="text-foreground">Profissional *</Label>
             <Select onValueChange={(value) => form.setValue('professional', value)} value={form.watch('professional')}>
@@ -207,7 +200,6 @@ export function BookingForm() {
             )}
           </div>
 
-          {/* Data e Hora */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label className="text-foreground">Data *</Label>
@@ -265,7 +257,6 @@ export function BookingForm() {
             </div>
           </div>
 
-          {/* Dados do Veículo */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label className="text-foreground">Marca do Veículo *</Label>
@@ -320,7 +311,6 @@ export function BookingForm() {
             </div>
           </div>
 
-          {/* Observações */}
           <div className="space-y-2">
             <Label className="text-foreground">Observações</Label>
             <Textarea
@@ -331,7 +321,6 @@ export function BookingForm() {
             />
           </div>
 
-          {/* Resumo do Agendamento */}
           {form.watch('service') && (
             <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
               <h4 className="font-semibold text-foreground mb-2">Resumo do Agendamento</h4>

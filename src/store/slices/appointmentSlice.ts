@@ -29,7 +29,6 @@ export interface AppointmentState {
 
 const initialState: AppointmentState = {
   appointments: [
-    // Mock data inicial
     {
       id: '1',
       userId: 'user1',
@@ -100,6 +99,7 @@ const appointmentSlice = createSlice({
       const newAppointment: Appointment = {
         ...action.payload,
         id: Date.now().toString(),
+        date: new Date(action.payload.date), 
         createdAt: new Date(),
         updatedAt: new Date(),
       };

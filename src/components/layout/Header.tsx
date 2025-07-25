@@ -3,6 +3,7 @@ import { Droplets, User, Calendar, Settings, LogOut } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { LoginModal } from "@/components/auth/LoginModal";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -12,29 +13,26 @@ const Header = () => {
     <header className="bg-gradient-card backdrop-blur-md border-b border-border/50 sticky top-0 z-50 shadow-soft">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo e Nome */}
           <div className="flex items-center gap-3">
             <div className="p-2 bg-gradient-primary rounded-lg shadow-medium">
               <Droplets className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground">AquaWash Pro</h1>
-              <p className="text-sm text-muted-foreground">Sistema de Agendamento</p>
+              <h1 className="text-xl font-bold text-foreground">Lava-Jato</h1>
             </div>
           </div>
 
-          {/* Navegação */}
           <nav className="hidden md:flex items-center gap-6">
             <Button variant="ghost" asChild className="text-foreground hover:text-primary">
-              <a href="/agendamento">
+              <Link to="/agendamento">
                 <Calendar className="w-4 h-4 mr-2" />
                 Agendamentos
-              </a>
+              </Link>
             </Button>
             <Button variant="ghost" asChild className="text-foreground hover:text-primary">
-              <a href="/dashboard">
+              <Link to="/dashboard">
                 Dashboard
-              </a>
+              </Link>
             </Button>
             <Button variant="ghost" className="text-foreground hover:text-primary">
               Serviços
@@ -44,7 +42,7 @@ const Header = () => {
             </Button>
           </nav>
 
-          {/* Área do usuário */}
+
           <div className="flex items-center gap-3">
             {isAuthenticated ? (
               <div className="flex items-center gap-2">

@@ -1,73 +1,105 @@
-# Welcome to your Lovable project
 
-## Project info
+# AquaWash Pro
 
-**URL**: https://lovable.dev/projects/bbb98a3e-e4c7-40c4-b576-f50253845576
+Sistema completo de agendamento para lava jato profissional.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## Índice
 
-**Use Lovable**
+- [Visão Geral](#visão-geral)
+- [Decisões Técnicas](#decisões-técnicas)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Principais Funcionalidades](#principais-funcionalidades)
+- [Padrões de Código e Convenções](#padrões-de-código-e-convenções)
+- [Como Rodar o Projeto](#como-rodar-o-projeto)
+- [Customização de Tema](#customização-de-tema)
+- [Testes](#testes)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/bbb98a3e-e4c7-40c4-b576-f50253845576) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## Visão Geral
 
-**Use your preferred IDE**
+O AquaWash Pro é uma aplicação web para gerenciamento de agendamentos em lava jato, permitindo que clientes agendem serviços, visualizem profissionais e acompanhem seus agendamentos. O sistema também oferece um painel administrativo para controle de agendamentos e análise de dados.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Decisões Técnicas
 
-Follow these steps:
+- **React + TypeScript**: Utilizado para garantir tipagem estática, melhor manutenção e escalabilidade.
+- **Redux Toolkit**: Gerenciamento de estado global, especialmente para agendamentos e autenticação.
+- **React Router**: Navegação SPA.
+- **Radix UI + Tailwind CSS**: Componentização acessível e estilização rápida e consistente.
+- **Vite**: Build tool moderna para desenvolvimento rápido.
+- **Arquitetura Modular**: Separação clara entre componentes, páginas, hooks, contextos e store.
+- **Responsividade**: Layouts otimizados para mobile e desktop.
+- **Design System**: Utilização de tokens CSS customizáveis e utilitários Tailwind.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Estrutura do Projeto
+src/ App.tsx # Entrypoint da aplicação index.css # Design system, tokens e utilitários 
 
-# Step 3: Install the necessary dependencies.
-npm i
+assets/ # Imagens e recursos estáticos components/ auth/ # Autenticação (ex: LoginModal) 
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+booking/ # Agendamento (ex: BookingForm) 
 
-**Edit a file directly in GitHub**
+dashboard/ # Dashboard e analytics layout/ # Header, Layout, Footer 
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+sections/ # Seções da landing page (Hero, Serviços, Profissionais) 
 
-**Use GitHub Codespaces**
+ui/ # Componentes reutilizáveis (Button, Card, etc) 
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+contexts/ # Contextos globais (ex: AuthContext) 
 
-## What technologies are used for this project?
+hooks/ # Hooks customizados 
 
-This project is built with:
+lib/ # Funções utilitárias 
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+pages/ # Páginas principais (Index, Booking, Dashboard, NotFound) 
 
-## How can I deploy this project?
+store/ # Redux store, slices e selectors
 
-Simply open [Lovable](https://lovable.dev/projects/bbb98a3e-e4c7-40c4-b576-f50253845576) and click on Share -> Publish.
+- **components/ui/**: Biblioteca de componentes atômicos, estilizados com Tailwind e tokens do design system.
+- **contexts/**: Contextos React para autenticação e outros estados globais.
+- **store/**: Slices Redux para agendamentos, usuários, etc.
+- **pages/**: Cada rota principal tem seu próprio componente de página.
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## Principais Funcionalidades
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **Agendamento Online**: Formulário completo com validação, seleção de serviço, profissional, data e horário.
+- **Dashboard**: Estatísticas, gráficos e listagem de agendamentos.
+- **Gestão de Profissionais**: Visualização de equipe e disponibilidade.
+- **Tema Personalizável**: Tokens CSS para fácil customização de cores e gradientes.
+- **Acessibilidade**: Componentes Radix UI e navegação por teclado.
+- **Notificações**: Toasts para feedback de ações do usuário.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
+
+## Padrões de Código e Convenções
+
+- **TypeScript**: Tipagem obrigatória em todos os componentes e funções.
+- **Tailwind CSS**: Utilização extensiva de utilitários e classes customizadas.
+- **Componentização**: Componentes pequenos, reutilizáveis e sem lógica de negócio acoplada.
+- **Redux Toolkit**: Slices organizados por domínio.
+- **ESLint + Prettier**: Padronização automática de código.
+
+---
+
+## Como Rodar o Projeto
+
+1. Instale as dependências:
+   ```sh
+   npm install
+    ```
+
+2. Rode o projeto em modo desenvolvimento:    
+    ```sh
+    npm run dev
+    ```
+
+3. Acesse a aplicação em `http://localhost:8080`.

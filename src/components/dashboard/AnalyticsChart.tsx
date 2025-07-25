@@ -25,7 +25,6 @@ interface AnalyticsChartProps {
   data?: ChartDataItem[];
 }
 
-// Fallback data caso não seja fornecido
 const defaultMonthlyData = [
   { month: 'Jan', agendamentos: 12, receita: 420 },
   { month: 'Fev', agendamentos: 19, receita: 665 },

@@ -97,21 +97,20 @@ const ProfessionalsSection = () => {
               </CardHeader>
               
               <CardContent className="space-y-4">
-                {/* Experiência */}
+      
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Award className="w-4 h-4" />
                   <span>{professional.experience} de experiência</span>
                 </div>
                 
-                {/* Status */}
+   
                 <div className="flex items-center gap-2 text-sm">
                   <Clock className="w-4 h-4" />
                   <span className={professional.available ? 'text-success' : 'text-muted-foreground'}>
                     {professional.available ? 'Disponível' : 'Ocupado'}
                   </span>
                 </div>
-                
-                {/* Especialidades */}
+ 
                 <div className="space-y-2">
                   <div className="text-sm font-medium text-foreground">Especialidades:</div>
                   <div className="flex flex-wrap gap-1">
@@ -122,8 +121,7 @@ const ProfessionalsSection = () => {
                     ))}
                   </div>
                 </div>
-                
-                {/* Botão */}
+
                 <Button 
                   className="w-full bg-gradient-primary hover:opacity-90 transition-smooth"
                   size="sm"

@@ -43,7 +43,6 @@ export function AppointmentList({ appointments: initialAppointments }: Appointme
         const newIndex = items.findIndex((item) => item.id === over?.id);
         const reorderedItems = arrayMove(items, oldIndex, newIndex);
         
-        // Atualizar o Redux store
         dispatch(reorderAppointments(reorderedItems));
         
         return reorderedItems;
@@ -51,7 +50,6 @@ export function AppointmentList({ appointments: initialAppointments }: Appointme
     }
   }
 
-  // Atualizar estado local quando props mudam
   if (JSON.stringify(appointments) !== JSON.stringify(initialAppointments)) {
     setAppointments(initialAppointments);
   }

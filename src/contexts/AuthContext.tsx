@@ -27,7 +27,7 @@ export const useAuth = () => {
   return context;
 };
 
-// Mock users for demonstration
+
 const mockUsers: Array<User & { password: string }> = [
   {
     id: '1',
@@ -50,7 +50,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for stored token on mount
     const token = localStorage.getItem('authToken');
     const userData = localStorage.getItem('userData');
     
@@ -68,7 +67,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     
-    // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     const foundUser = mockUsers.find(
@@ -79,7 +77,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { password: _, ...userWithoutPassword } = foundUser;
       setUser(userWithoutPassword);
       
-      // Store auth data
       localStorage.setItem('authToken', 'mock-jwt-token');
       localStorage.setItem('userData', JSON.stringify(userWithoutPassword));
       

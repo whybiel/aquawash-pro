@@ -91,10 +91,10 @@ const ServicesSection = () => {
                 
                 <CardContent>
                   <div className="space-y-4">
-                    {/* Preço */}
+         
                     <div className="text-2xl font-bold text-primary">{service.price}</div>
                     
-                    {/* Features */}
+               
                     <ul className="space-y-2">
                       {service.features.map((feature, index) => (
                         <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -103,8 +103,7 @@ const ServicesSection = () => {
                         </li>
                       ))}
                     </ul>
-                    
-                    {/* Botão */}
+      
                     <Button 
                       className="w-full bg-gradient-primary hover:opacity-90 transition-smooth"
                       size="sm"

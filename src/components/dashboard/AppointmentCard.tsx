@@ -51,7 +51,7 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
   };
 
   const handleEdit = () => {
-    // Por enquanto apenas mostra toast, implementar modal de edição depois
+    // Modal de edição - amanha
     toast({
       title: "Editar agendamento",
       description: "Funcionalidade de edição em desenvolvimento.",
@@ -67,8 +67,7 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
       <Card className="card-hover">
         <CardContent className="p-4">
           <div className="flex items-start justify-between">
-            <div className="flex items-start space-x-4 flex-1">
-              {/* Drag Handle */}
+            <div className="flex items-start space-x-4 flex-1">   
               <div
                 {...attributes}
                 {...listeners}
@@ -77,7 +76,6 @@ export function AppointmentCard({ appointment }: AppointmentCardProps) {
                 <GripVertical className="h-4 w-4" />
               </div>
 
-              {/* Appointment Info */}
               <div className="flex-1 space-y-3">
                 <div className="flex items-center justify-between">
                   <h3 className="font-semibold text-foreground text-lg">

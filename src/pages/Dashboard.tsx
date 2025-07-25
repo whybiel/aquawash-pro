@@ -17,20 +17,19 @@ import {
 const Dashboard = () => {
   const { user } = useAuth();
   
-  // Usando selectors do Redux para obter dados baseados no role do usuário
-  const upcomingAppointments = useAppSelector(state => 
-    selectUpcomingAppointments(state, user?.id || '', user?.role || 'user')
-  );
+  const allAppointments = useAppSelector((state) => state.appointments.appointments);
+  const upcomingAppointments = useAppSelector((state) =>
+    selectUpcomingAppointments(state, 'user1', user?.role || 'user')
+  )
   
   const pastAppointments = useAppSelector(state => 
-    selectPastAppointments(state, user?.id || '', user?.role || 'user')
+    selectPastAppointments(state, 'user1', user?.role || 'user')
   );
   
   const stats = useAppSelector(state => 
-    selectAppointmentStats(state, user?.id || '', user?.role || 'user')
+    selectAppointmentStats(state, 'user1', user?.role || 'user')
   );
 
-  // Dados para o gráfico baseados nos agendamentos reais
   const chartData = useMemo(() => {
     const allAppointments = [...upcomingAppointments, ...pastAppointments];
     const monthlyData: { [key: string]: { agendamentos: number; receita: number } } = {};
@@ -58,7 +57,6 @@ const Dashboard = () => {
     <Layout>
       <div className="min-h-screen bg-gradient-background">
         <div className="container mx-auto px-4 py-8">
-          {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
               Dashboard
@@ -68,7 +66,6 @@ const Dashboard = () => {
             </p>
           </div>
 
-          {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card className="card-hover">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -127,9 +124,7 @@ const Dashboard = () => {
             </Card>
           </div>
 
-          {/* Main Content */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Appointments Section */}
             <div className="lg:col-span-2">
               <Tabs defaultValue="upcoming" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-6">
@@ -160,7 +155,6 @@ const Dashboard = () => {
               </Tabs>
             </div>
 
-            {/* Analytics Section */}
             <div className="space-y-6">
               <Card className="card-hover">
                 <CardHeader>
@@ -174,7 +168,6 @@ const Dashboard = () => {
                 </CardContent>
               </Card>
 
-              {/* Quick Actions */}
               <Card className="card-hover">
                 <CardHeader>
                   <CardTitle className="text-lg">Ações Rápidas</CardTitle>

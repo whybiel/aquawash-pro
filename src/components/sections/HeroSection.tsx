@@ -10,7 +10,6 @@ const HeroSection = () => {
       
       <div className="container mx-auto px-4 py-24 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Conteúdo */}
           <div className="space-y-6">
             <Badge className="bg-white/20 text-white border-white/30 hover:bg-white/30">
               🚗 Agendamento Online Disponível
@@ -28,7 +27,6 @@ const HeroSection = () => {
               equipamentos modernos e o melhor atendimento da região.
             </p>
 
-            {/* Stats */}
             <div className="grid grid-cols-3 gap-4 py-6">
               <div className="text-center">
                 <div className="text-2xl font-bold">500+</div>
@@ -44,7 +42,7 @@ const HeroSection = () => {
               </div>
             </div>
 
-            {/* CTAs */}
+
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 size="lg" 
@@ -60,7 +58,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Imagem */}
+
           <div className="relative">
             <div className="relative bg-gradient-card rounded-2xl p-4 shadow-strong">
               <img
@@ -69,7 +67,7 @@ const HeroSection = () => {
                 className="rounded-xl w-full h-auto object-cover"
               />
               
-              {/* Badges flutuantes */}
+      
               <div className="absolute top-8 right-8 bg-success text-success-foreground px-3 py-1 rounded-full text-sm font-medium shadow-medium">
                 <Star className="w-4 h-4 inline mr-1" />
                 Avaliação 4.9
@@ -86,7 +84,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Decoração */}
+
       <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
     </section>
