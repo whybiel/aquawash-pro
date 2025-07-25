@@ -25,9 +25,16 @@ const Header = () => {
 
           {/* Navegação */}
           <nav className="hidden md:flex items-center gap-6">
-            <Button variant="ghost" className="text-foreground hover:text-primary">
-              <Calendar className="w-4 h-4 mr-2" />
-              Agendamentos
+            <Button variant="ghost" asChild className="text-foreground hover:text-primary">
+              <a href="/agendamento">
+                <Calendar className="w-4 h-4 mr-2" />
+                Agendamentos
+              </a>
+            </Button>
+            <Button variant="ghost" asChild className="text-foreground hover:text-primary">
+              <a href="/dashboard">
+                Dashboard
+              </a>
             </Button>
             <Button variant="ghost" className="text-foreground hover:text-primary">
               Serviços
