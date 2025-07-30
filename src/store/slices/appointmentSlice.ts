@@ -29,46 +29,7 @@ export interface AppointmentState {
 }
 
 const initialState: AppointmentState = {
-  appointments: [
-    {
-      id: '1',
-      userId: 'user',
-      userName: 'João Silva',
-      date: new Date('2024-07-30'),
-      time: '09:00',
-      service: 'Lavagem Completa',
-      servicePrice: 35.0,
-      professional: 'João Silva',
-      vehicle: {
-        make: 'Honda',
-        model: 'Civic',
-        plate: 'ABC-1234',
-        color: 'Branco'
-      },
-      status: 'confirmado',
-      createdAt: new Date('2024-07-25'),
-      updatedAt: new Date('2024-07-25')
-    },
-    {
-      id: '2',
-      userId: 'user',
-      userName: 'João Silva',
-      date: new Date('2024-08-02'),
-      time: '14:30',
-      service: 'Enceramento',
-      servicePrice: 80.0,
-      professional: 'Maria Santos',
-      vehicle: {
-        make: 'Toyota',
-        model: 'Corolla',
-        plate: 'XYZ-5678',
-        color: 'Prata'
-      },
-      status: 'pendente',
-      createdAt: new Date('2024-07-25'),
-      updatedAt: new Date('2024-07-25')
-    }
-  ],
+  appointments: [],
   loading: false,
   error: null,
   editingAppointment: null

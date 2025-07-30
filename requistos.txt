@@ -56,5 +56,5 @@ entendimento do projeto.
 
 
 Incluir: 7
-Finalizar: 6 (CI/CD), 8 (Atualizar a documentação)
-Concluidos: 1, 2, 3, 4, 5
+Finalizar: 8 (Atualizar a documentação)
+Concluidos: 1, 2, 3, 4, 5, 6
