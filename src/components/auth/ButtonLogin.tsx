@@ -2,7 +2,6 @@ import MicrosoftLogin from 'react-microsoft-login'
 import { useAuth } from '@/contexts/AuthContext'
 import { toast } from '@/hooks/use-toast'
 import { jwtDecode } from 'jwt-decode'
-import Microsoft from '@/assets/microsoft.png'
 
 const clientId = '065e6933-ffaa-4514-afab-92de06adeb98'
 
@@ -60,8 +59,11 @@ export const LoginMicrosoftButton = ({ onClose }: { onClose: () => void }) => {
         graphScopes={['user.read']}
       >
         <img
-          src={Microsoft}
+          src='/microsoft.png'
           alt='Microsoft Logo'
+          width={16}
+          height={16}
+          loading='lazy'
           className='w-4 h-4 mr-4 inline-block'
         />
         Entrar com Microsoft

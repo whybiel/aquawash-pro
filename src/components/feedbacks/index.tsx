@@ -1,7 +1,7 @@
 import { returnFeedbacksWithUsers } from '@/services/getFeedbacks'
 import { useEffect, useState } from 'react'
 
-export function FeedBacks() {
+export default function FeedBacks() {
   const [feedbacks, setFeedbacks] = useState([])
 
   useEffect(() => {
@@ -30,6 +30,9 @@ export function FeedBacks() {
                 <img
                   src={feedback.avatar}
                   alt={feedback.name}
+                  width={48}
+                  height={48}
+                  loading='lazy'
                   className='w-12 h-12 rounded-full mr-3'
                 />
                 <div>

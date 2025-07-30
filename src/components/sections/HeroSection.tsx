@@ -1,12 +1,11 @@
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, Star, Shield, Clock } from 'lucide-react'
-import heroImage from '@/assets/hero-car-wash.jpg'
+import { Calendar, Star, Shield } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const HeroSection = () => {
   return (
-    <section className='relative bg-gradient-hero text-white overflow-hidden'>
+    <section className='min-h-[600px] relative bg-gradient-hero text-white overflow-hidden'>
       <div className='absolute inset-0 bg-gradient-to-r from-primary/90 to-accent/80' />
 
       <div className='container mx-auto px-4 py-24 relative z-10'>
@@ -68,9 +67,13 @@ const HeroSection = () => {
           <div className='relative'>
             <div className='relative bg-gradient-card rounded-2xl p-4 shadow-strong'>
               <img
-                src={heroImage}
+                src='/hero-car-wash.webp'
+                width={628}
+                height={471}
                 alt='Lavagem de carro profissional'
-                className='rounded-xl w-full h-auto object-cover'
+                loading='eager'
+                decoding='async'
+                fetchPriority='high'
               />
 
               <div className='absolute top-8 right-8 bg-success text-success-foreground px-3 py-1 rounded-full text-sm font-medium shadow-medium'>

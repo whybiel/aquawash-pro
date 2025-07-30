@@ -1,7 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from '../index'
-import { isAfter, isBefore, isSameDay } from 'date-fns'
-import { Appointment } from '../slices/appointmentSlice'
 
 const selectAppointments = (state: RootState) => state.appointments.appointments
 const selectCurrentUser = (_: RootState, userId: string) => userId

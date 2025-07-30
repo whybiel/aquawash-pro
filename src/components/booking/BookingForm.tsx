@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import { format, addDays, isBefore, isToday, set } from 'date-fns'
-import { id, ptBR } from 'date-fns/locale'
+import { format, isBefore, isToday } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import {
   addAppointment,

@@ -9,7 +9,7 @@ import {
   Sparkle,
   UserRound
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { LoginModal } from '@/components/auth/LoginModal'
 import { Link } from 'react-router-dom'

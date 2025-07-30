@@ -1,14 +1,17 @@
+import { lazy, Suspense, useEffect } from 'react'
 import Layout from '@/components/layout/Layout'
+
 import HeroSection from '@/components/sections/HeroSection'
-import ServicesSection from '@/components/sections/ServicesSection'
-import ProfessionalsSection from '@/components/sections/ProfessionalsSection'
-import { useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
-import { FeedBacks } from '@/components/feedbacks'
+
+const ServicesSection = lazy(
+  () => import('@/components/sections/ServicesSection')
+)
+const ProfessionalsSection = lazy(
+  () => import('@/components/sections/ProfessionalsSection')
+)
+const FeedBacks = lazy(() => import('@/components/feedbacks'))
 
 const Index = () => {
-  const location = useLocation()
-
   useEffect(() => {
     if (location.hash === '#services' || location.hash === '#professionals') {
       const element = document.getElementById(location.hash.replace('#', ''))
@@ -21,9 +24,12 @@ const Index = () => {
   return (
     <Layout>
       <HeroSection />
-      <ServicesSection id='services' />
-      <ProfessionalsSection id='professionals' />
-      <FeedBacks />
+
+      <Suspense fallback={<div>Carregando conteúdo...</div>}>
+        <ServicesSection id='services' />
+        <ProfessionalsSection id='professionals' />
+        <FeedBacks />
+      </Suspense>
     </Layout>
   )
 }

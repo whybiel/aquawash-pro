@@ -6,7 +6,6 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { Sparkles, Car, Shield, Zap, Clock, Star } from 'lucide-react'
 
 const services = [
@@ -59,7 +58,7 @@ const services = [
 
 const ServicesSection = ({ id }: { id: string }) => {
   return (
-    <section className='py-20 bg-muted/30' id={id}>
+    <section className='min-h-[600px] py-20 bg-muted/30' id={id}>
       <div className='container mx-auto px-4'>
         <div className='text-center mb-16'>
           <Badge className='mb-4 bg-primary/10 text-primary border-primary/20'>

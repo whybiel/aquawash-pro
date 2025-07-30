@@ -6,9 +6,8 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Star, Award, Users, Clock } from 'lucide-react'
+import { Star, Award, Clock } from 'lucide-react'
 
 const professionals = [
   {
@@ -59,7 +58,7 @@ const professionals = [
 
 const ProfessionalsSection = ({ id }: { id: string }) => {
   return (
-    <section className='py-20 bg-background' id={id}>
+    <section className=' min-h-[600px] py-20 bg-background' id={id}>
       <div className='container mx-auto px-4'>
         <div className='text-center mb-16'>
           <Badge className='mb-4 bg-accent/10 text-accent border-accent/20'>
