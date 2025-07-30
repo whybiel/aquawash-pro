@@ -1,0 +1,71 @@
+import MicrosoftLogin from 'react-microsoft-login'
+import { useAuth } from '@/contexts/AuthContext'
+import { toast } from '@/hooks/use-toast'
+import { jwtDecode } from 'jwt-decode'
+import Microsoft from '@/assets/microsoft.png'
+
+const clientId = '065e6933-ffaa-4514-afab-92de06adeb98'
+
+export const LoginMicrosoftButton = ({ onClose }: { onClose: () => void }) => {
+  const { login } = useAuth()
+
+  type IdTokenPayload = {
+    name: string
+    preferred_username: string
+    oid: string
+    roles?: string[]
+  }
+
+  const handleLogin = (err: any, data: any) => {
+    if (err) {
+      toast({
+        title: 'Erro de autenticação',
+        description: 'Não foi possível processar o login. Tente novamente.',
+        variant: 'destructive'
+      })
+      return
+    }
+
+    const { idToken, accessToken } = data
+
+    try {
+      const decoded: IdTokenPayload = jwtDecode(idToken)
+
+      const user = {
+        name: decoded.name,
+        email: decoded.preferred_username,
+        id: decoded.oid,
+        accessToken: accessToken,
+        roles: decoded.roles || ['user']
+      }
+
+      login(user)
+      onClose()
+    } catch (decodeError) {
+      toast({
+        title: 'Erro de autenticação',
+        description: 'Não foi possível processar o login. Tente novamente.',
+        variant: 'destructive'
+      })
+    }
+  }
+
+  return (
+    <button className='w-full h-14 rounded-lg border-2 hover:bg-gray-100 transition-colors'>
+      <MicrosoftLogin
+        clientId={clientId}
+        authCallback={handleLogin}
+        redirectUri={'http://localhost:8080'}
+        buttonTheme='light'
+        graphScopes={['user.read']}
+      >
+        <img
+          src={Microsoft}
+          alt='Microsoft Logo'
+          className='w-4 h-4 mr-4 inline-block'
+        />
+        Entrar com Microsoft
+      </MicrosoftLogin>
+    </button>
+  )
+}

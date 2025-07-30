@@ -1,0 +1,60 @@
+OKAY 1. Configuração Inicial:
+o Configurar um novo projeto utilizando TypeScript.
+o Estruturar o projeto com uma organização modular, incluindo pastas
+separadas para componentes, serviços, hooks, utilitários e estilos.
+
+OKAY 2. Autenticação e Autorização:
+o Implementar autenticação de usuários integrando com Login Microsoft.
+o Utilizar JWT (JSON Web Token) para gerenciar sessões de usuário.
+o Implementar autorização baseada em roles (admin, user) com permissões
+específicas para cada tipo de usuário.
+
+OKAY 3. Consumo de API :
+o Integrar quantas API externas achar necessário a escolha do desenvolvedor
+
+OKAY 4. Gerenciamento de Estado com Redux e Redux Saga:
+
+o Configurar Redux ou Context API para gerenciar o estado global da
+aplicação.
+o Utilizar Redux Saga para lidar com efeitos colaterais e chamadas
+assíncronas.
+o Implementar actions, reducers e sagas para as operações de autenticação e
+gerenciamento de projetos/tarefas.
+
+OKAY 5. Interface do Usuário Avançada:
+o Utilizar Material-UI ou Ant Design para construir uma interface moderna e
+responsiva.
+o Implementar um sistema de drag-and-drop para reordenar tarefas dentro de
+projetos.
+o Criar gráficos interativos utilizando D3.js ou Chart.js para visualização de
+dados de progresso dos projetos.
+
+NOKAY 6. Testes e Qualidade de Código:
+o Escrever testes unitários e de integração utilizando Jest e React Testing
+Library.
+o Implementar testes end-to-end (E2E) com Cypress para garantir a
+integridade das funcionalidades críticas.
+o Configurar CI/CD (Continuous Integration/Continuous Deployment) utilizando
+GitHub Actions ou Jenkins para automatizar o pipeline de testes e deploy é
+um diferencial
+
+NOKAY 7. Desempenho e Otimização:
+o Implementar code splitting e lazy loading para otimizar o tempo de
+carregamento inicial.
+o Utilizar ferramentas como Lighthouse para auditar e melhorar a performance
+da aplicação.
+o Monitorar a performance da aplicação em produção utilizando Sentry ou New
+Relic.
+
++/- OKAY 8. Documentação:
+o Documentar o código utilizando JSDoc ou TypeDoc.
+o Criar uma documentação detalhada do projeto incluindo decisões
+arquiteturais, instruções de setup, e um guia de estilo de código.
+o Incluir diagramas de arquitetura e fluxo de dados para facilitar o
+entendimento do projeto.
+
+
+
+Incluir: 7
+Finalizar: 6 (CI/CD), 8 (Atualizar a documentação)
+Concluidos: 1, 2, 3, 4, 5

@@ -1,120 +1,50 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { toast } from '@/hooks/use-toast';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect
+} from 'react'
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: 'admin' | 'user';
-  avatar?: string;
+type User = {
+  name: string
+  email: string
+  accessToken: string
 }
 
-interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<boolean>;
-  logout: () => void;
-  isLoading: boolean;
-  isAuthenticated: boolean;
+type AuthContextData = {
+  user: User | null
+  login: (user: User) => void
+  logout: () => void
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
-
-
-const mockUsers: Array<User & { password: string }> = [
-  {
-    id: '1',
-    name: 'João Silva',
-    email: 'admin@aquawash.com',
-    password: 'admin123',
-    role: 'admin',
-  },
-  {
-    id: '2',
-    name: 'Maria Santos',
-    email: 'user@example.com',
-    password: 'user123',
-    role: 'user',
-  },
-];
-
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    const userData = localStorage.getItem('userData');
-    
-    if (token && userData) {
-      try {
-        setUser(JSON.parse(userData));
-      } catch (error) {
-        localStorage.removeItem('authToken');
-        localStorage.removeItem('userData');
-      }
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      setUser(JSON.parse(storedUser))
     }
-    setIsLoading(false);
-  }, []);
+  }, [])
 
-  const login = async (email: string, password: string): Promise<boolean> => {
-    setIsLoading(true);
-    
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const foundUser = mockUsers.find(
-      u => u.email === email && u.password === password
-    );
-    
-    if (foundUser) {
-      const { password: _, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword);
-      
-      localStorage.setItem('authToken', 'mock-jwt-token');
-      localStorage.setItem('userData', JSON.stringify(userWithoutPassword));
-      
-      toast({
-        title: "Login realizado com sucesso!",
-        description: `Bem-vindo, ${foundUser.name}`,
-      });
-      
-      setIsLoading(false);
-      return true;
-    } else {
-      toast({
-        title: "Erro de autenticação",
-        description: "Email ou senha incorretos",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return false;
-    }
-  };
+  const login = (userData: User) => {
+    setUser(userData)
+    localStorage.setItem('user', JSON.stringify(userData))
+  }
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userData');
-    toast({
-      title: "Logout realizado",
-      description: "Você foi desconectado com sucesso",
-    });
-  };
+    setUser(null)
+    localStorage.removeItem('user')
+  }
 
-  const value = {
-    user,
-    login,
-    logout,
-    isLoading,
-    isAuthenticated: !!user,
-  };
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  )
+}
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
+export const useAuth = () => useContext(AuthContext)
