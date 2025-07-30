@@ -19,6 +19,7 @@ import {
   selectPastAppointments,
   selectAppointmentStats
 } from '@/store/selectors/appointmentSelectors'
+import Header from '@/components/layout/Header'
 
 const Dashboard = () => {
   const { user } = useAuth()
@@ -61,6 +62,28 @@ const Dashboard = () => {
       ...data
     }))
   }, [upcomingAppointments, pastAppointments])
+
+  if (!user) {
+    return (
+      <div className='min-h-screen bg-gradient-background'>
+        <Header />
+        <div className='container mx-auto px-4 py-8'>
+          <div className='text-center mb-8'>
+            <h1 className='text-3xl md:text-4xl font-bold text-foreground mb-4'>
+              Dashboard
+            </h1>
+            <Card className='max-w-2xl mx-auto bg-gradient-card border border-border/50'>
+              <CardContent className='p-8 text-center'>
+                <p className='text-muted-foreground'>
+                  Faça login para acessar o dashboard
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <Layout>
