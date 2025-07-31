@@ -3,8 +3,6 @@ import { useAuth } from '@/contexts/AuthContext'
 import { toast } from '@/hooks/use-toast'
 import { jwtDecode } from 'jwt-decode'
 
-const clientId = '065e6933-ffaa-4514-afab-92de06adeb98'
-
 export const LoginMicrosoftButton = ({ onClose }: { onClose: () => void }) => {
   const { login } = useAuth()
 
@@ -52,9 +50,9 @@ export const LoginMicrosoftButton = ({ onClose }: { onClose: () => void }) => {
   return (
     <button className='w-full h-14 rounded-lg border-2 hover:bg-gray-100 transition-colors'>
       <MicrosoftLogin
-        clientId={clientId}
+        clientId={import.meta.env.VITE_MICROSOFT_CLIENT_ID}
         authCallback={handleLogin}
-        redirectUri={'http://localhost:8080'}
+        redirectUri={import.meta.env.VITE_MICROSOFT_REDIRECT_URI}
         buttonTheme='light'
         graphScopes={['user.read']}
       >
