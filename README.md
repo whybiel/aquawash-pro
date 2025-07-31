@@ -1,105 +1,178 @@
+# Documentação do Projeto AquaWash Pro
 
-# AquaWash Pro
-
-Sistema completo de agendamento para lava jato profissional.
-
----
-
-## Índice
+## Sumário
 
 - [Visão Geral](#visão-geral)
-- [Decisões Técnicas](#decisões-técnicas)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Principais Funcionalidades](#principais-funcionalidades)
-- [Padrões de Código e Convenções](#padrões-de-código-e-convenções)
-- [Como Rodar o Projeto](#como-rodar-o-projeto)
-- [Customização de Tema](#customização-de-tema)
-- [Testes](#testes)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
+- [Decisões Arquiteturais](#decisões-arquiteturais)
+- [Instruções de Setup](#instruções-de-setup)
+- [Guia de Estilo de Código](#guia-de-estilo-de-código)
+- [Diagramas](#diagramas)
 
 ---
 
 ## Visão Geral
 
-O AquaWash Pro é uma aplicação web para gerenciamento de agendamentos em lava jato, permitindo que clientes agendem serviços, visualizem profissionais e acompanhem seus agendamentos. O sistema também oferece um painel administrativo para controle de agendamentos e análise de dados.
+AquaWash Pro é um sistema web para agendamento de serviços de lava jato, com foco em experiência do usuário, controle de agendamentos e gestão de profissionais.
 
 ---
 
-## Decisões Técnicas
+## Decisões Arquiteturais
 
-- **React + TypeScript**: Utilizado para garantir tipagem estática, melhor manutenção e escalabilidade.
-- **Redux Toolkit**: Gerenciamento de estado global, especialmente para agendamentos e autenticação.
-- **React Router**: Navegação SPA.
-- **Radix UI + Tailwind CSS**: Componentização acessível e estilização rápida e consistente.
-- **Vite**: Build tool moderna para desenvolvimento rápido.
-- **Arquitetura Modular**: Separação clara entre componentes, páginas, hooks, contextos e store.
-- **Responsividade**: Layouts otimizados para mobile e desktop.
-- **Design System**: Utilização de tokens CSS customizáveis e utilitários Tailwind.
+- **Frontend:**
 
----
+  - React + TypeScript
+  - Vite para build e desenvolvimento
+  - TailwindCSS para estilização
+  - React Router para navegação
+  - Context API para autenticação
+  - Redux Toolkit para estado global de agendamentos
+  - Lazy loading para otimização de performance
+  - Sentry para monitoramento de erros
 
-## Estrutura do Projeto
-src/ App.tsx # Entrypoint da aplicação index.css # Design system, tokens e utilitários 
+- **Componentização:**
 
-assets/ # Imagens e recursos estáticos components/ auth/ # Autenticação (ex: LoginModal) 
+  - Componentes reutilizáveis em `/components/ui`
+  - Páginas em `/pages`
+  - Contextos em `/contexts`
+  - Hooks customizados em `/hooks`
 
-booking/ # Agendamento (ex: BookingForm) 
-
-dashboard/ # Dashboard e analytics layout/ # Header, Layout, Footer 
-
-sections/ # Seções da landing page (Hero, Serviços, Profissionais) 
-
-ui/ # Componentes reutilizáveis (Button, Card, etc) 
-
-contexts/ # Contextos globais (ex: AuthContext) 
-
-hooks/ # Hooks customizados 
-
-lib/ # Funções utilitárias 
-
-pages/ # Páginas principais (Index, Booking, Dashboard, NotFound) 
-
-store/ # Redux store, slices e selectors
-
-- **components/ui/**: Biblioteca de componentes atômicos, estilizados com Tailwind e tokens do design system.
-- **contexts/**: Contextos React para autenticação e outros estados globais.
-- **store/**: Slices Redux para agendamentos, usuários, etc.
-- **pages/**: Cada rota principal tem seu próprio componente de página.
+- **Testes:**
+  - Testes unitários com Jest + React Testing Library em `/test`
+  - Testes automatizados com Cypress em `/cypress`
 
 ---
 
-## Principais Funcionalidades
+## Instruções de Setup
 
-- **Agendamento Online**: Formulário completo com validação, seleção de serviço, profissional, data e horário.
-- **Dashboard**: Estatísticas, gráficos e listagem de agendamentos.
-- **Gestão de Profissionais**: Visualização de equipe e disponibilidade.
-- **Tema Personalizável**: Tokens CSS para fácil customização de cores e gradientes.
-- **Acessibilidade**: Componentes Radix UI e navegação por teclado.
-- **Notificações**: Toasts para feedback de ações do usuário.
+### Pré-requisitos
 
----
+- Node.js >= 18.x
+- Yarn ou npm
 
-## Padrões de Código e Convenções
+### Passos para rodar o projeto
 
-- **TypeScript**: Tipagem obrigatória em todos os componentes e funções.
-- **Tailwind CSS**: Utilização extensiva de utilitários e classes customizadas.
-- **Componentização**: Componentes pequenos, reutilizáveis e sem lógica de negócio acoplada.
-- **Redux Toolkit**: Slices organizados por domínio.
-- **ESLint + Prettier**: Padronização automática de código.
+1. **Clone o repositório:**
 
----
-
-## Como Rodar o Projeto
-
-1. Instale as dependências:
    ```sh
-   npm install
-    ```
+   git clone https://github.com/whybiel/aquawash-pro
+   cd aquawash-pro
+   ```
 
-2. Rode o projeto em modo desenvolvimento:    
+2. **Instale as dependências:**
+
+   ```sh
+    yarn install
+    # ou
+    npm install
+   ```
+
+3. **Inicie o servidor de desenvolvimento:**
+
+   ```sh
+   yarn dev
+   # ou
+   npm run dev
+   ```
+
+4. **Abra o navegador:**
     ```sh
-    npm run dev
-    ```
+   Acesse `http://localhost:8080` para ver o aplicativo em execução.
+   ```
+   
 
-3. Acesse a aplicação em `http://localhost:8080`.
+5. **Para rodar os testes:**
+
+   ```sh
+   yarn test
+   # ou
+   npm test
+   ```
+
+6. **Para rodar os testes end-to-end:**
+   ```sh
+   yarn cypress open
+   # ou
+   npx cypress open
+   ```
+
+### Guia de Estilo de Código
+
+- Padrão:
+  -- TypeScript para tipagem estática
+  -- ESLint + Prettier configurados
+  --Nomes de componentes em PascalCase
+  --Funções e variáveis em camelCase
+  --Separação clara entre lógica, apresentação e estilos
+
+-Boas práticas:
+--Componentes pequenos e reutilizáveis
+--Uso de hooks para lógica compartilhada
+--Comentários JSDoc em funções públicas
+--Evitar lógica de negócio em componentes de UI
+
+## Diagramas
+
+Arquitetura do sistema:
+
+## Arquitetura do Sistema
+
+```mermaid
+graph TD;
+    A[App.tsx] -->|Roteamento| B(Pages);
+    B -->|Composição| C(Components);
+    C -->|UI| D(UI Components);
+    A -->|Estado Global| E(Redux Store);
+    A -->|Autenticação| F(AuthContext);
+```
+
+Fluxo de Dados: Agendamento
+
+```mermaid
+sequenceDiagram
+    participant Usuário
+    participant UI
+    participant Redux
+    participant Store
+
+    Usuário->>UI: Preenche formulário de agendamento
+    UI->>Redux: Dispara ação addAppointment
+    Redux->>Store: Atualiza estado de agendamentos
+    Store-->>UI: Atualiza lista de agendamentos
+    UI-->>Usuário: Exibe confirmação/toast
+   
+```
+
+Estrutura de Pastas
+
+```sh
+src/
+├── components/
+│   ├── auth/
+│   ├── booking/
+│   ├── dashboard/
+│   ├── feedbacks/
+│   ├── layout/
+│   ├── sections/
+│   └── ui/
+├── contexts/
+│   └── AuthContext.tsx
+├── hooks/
+│   └── use-toast.ts
+├── lib/
+│   └── utils.ts
+├── pages/
+│   ├── Booking.tsx
+│   ├── Dashboard.tsx
+│   ├── Index.tsx
+│   └── NotFound.tsx
+├── services/
+│   └── getFeedbacks.ts
+├── store/
+│   ├── hooks.ts
+│   ├── index.ts
+│   ├── selectors/
+│   └── slices/
+├── test/
+├── types/
+└── App.tsx
+```
