@@ -24,7 +24,13 @@ const Index = () => {
   return (
     <Layout>
       <HeroSection />
-
+      <button
+        onClick={() => {
+          throw new Error('This is your first error!')
+        }}
+      >
+        Break the world
+      </button>
       <Suspense fallback={<div>Carregando conteúdo...</div>}>
         <ServicesSection id='services' />
         <ProfessionalsSection id='professionals' />
