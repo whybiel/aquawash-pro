@@ -97,18 +97,18 @@ AquaWash Pro é um sistema web para agendamento de serviços de lava jato, com f
 
 ### Guia de Estilo de Código
 
-- Padrão:
-  -- TypeScript para tipagem estática
-  -- ESLint + Prettier configurados
-  --Nomes de componentes em PascalCase
-  --Funções e variáveis em camelCase
-  --Separação clara entre lógica, apresentação e estilos
+- **Padrão:**
+  - TypeScript para tipagem estática
+  - ESLint + Prettier configurados
+  - Nomes de componentes em PascalCase
+  - Funções e variáveis em camelCase
+  - Separação clara entre lógica, apresentação e estilos
 
--Boas práticas:
---Componentes pequenos e reutilizáveis
---Uso de hooks para lógica compartilhada
---Comentários JSDoc em funções públicas
---Evitar lógica de negócio em componentes de UI
+- **Boas práticas:**
+  - Componentes pequenos e reutilizáveis
+  - Uso de hooks para lógica compartilhada
+  - Comentários JSDoc em funções públicas
+  - Evitar lógica de negócio em componentes de UI
 
 ## Diagramas
 
