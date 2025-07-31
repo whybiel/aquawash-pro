@@ -20,6 +20,7 @@ import {
   selectAppointmentStats
 } from '@/store/selectors/appointmentSelectors'
 import Header from '@/components/layout/Header'
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
   const { user } = useAuth()
@@ -208,10 +209,10 @@ const Dashboard = () => {
                     className='w-full justify-start'
                     asChild
                   >
-                    <a href='/agendamento'>
+                    <Link to='/agendamento'>
                       <Calendar className='mr-2 h-4 w-4' />
                       Novo Agendamento
-                    </a>
+                    </Link>
                   </Button>
                   <Button variant='outline' className='w-full justify-start'>
                     <User className='mr-2 h-4 w-4' />
