@@ -1,8 +1,13 @@
+import { render, screen } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
 import { Input } from '@/components/ui/input'
-import { render } from '@testing-library/react'
 
 describe('Input', () => {
-  it('should render without crashing', () => {
-    render(<Input />)
+  it('deve renderizar o input com placeholder', () => {
+    render(<Input placeholder='Digite seu nome' />)
+
+    const input = screen.getByPlaceholderText(/digite seu nome/i)
+    expect(input).toBeInTheDocument()
+    expect(input).toBeEnabled()
   })
 })

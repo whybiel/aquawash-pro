@@ -4,7 +4,7 @@ export function criarAgendamento({
   tipoServico = 'Lavagem Básica',
   profissional = 'João Santos',
   dia = '31',
-  horario = '14:00',
+  horario = '17:00',
   marcaVeiculo = 'Toyota',
   modeloVeiculo = 'Corolla',
   placaVeiculo = 'ABC-1234',

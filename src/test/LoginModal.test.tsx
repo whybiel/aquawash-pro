@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { LoginModal } from '@/components/auth/LoginModal'
 
 describe('LoginModal', () => {
-  const onCloseMock = jest.fn()
+  const onCloseMock = vi.fn()
 
   beforeEach(() => {
     onCloseMock.mockClear()

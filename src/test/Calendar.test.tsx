@@ -1,8 +1,9 @@
+import { render, screen } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
 import { Calendar } from '@/components/ui/calendar'
-import { render } from '@testing-library/react'
 
 describe('Calendar', () => {
-  it('should render without crashing', () => {
+  it('deve renderizar o calendário corretamente', () => {
     render(<Calendar />)
   })
 })

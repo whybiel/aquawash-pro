@@ -5,15 +5,6 @@ import { componentTagger } from 'lovable-tagger'
 import { sentryVitePlugin } from '@sentry/vite-plugin'
 
 export default defineConfig(({ mode }) => ({
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/test/setup.ts'
-  },
-  server: {
-    host: '::',
-    port: 8080
-  },
   plugins: [
     react(),
     sentryVitePlugin({
@@ -22,12 +13,30 @@ export default defineConfig(({ mode }) => ({
     }),
     mode === 'development' && componentTagger()
   ].filter(Boolean),
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
     }
   },
+
+  server: {
+    host: '::',
+    port: 8080
+  },
+
   build: {
     sourcemap: true
+  },
+
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
+    include: ['src/**/*.test.{ts,tsx}'],
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+      exclude: ['src/test/', 'src/**/*.d.ts']
+    }
   }
 }))
